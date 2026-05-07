@@ -1,0 +1,1371 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>搞点逸术工作室 Guardian Art</title>
+  <meta name="description" content="搞点逸术工作室，一个面向舞蹈、戏剧、影视等艺术背景创作者与爱好者的跨媒介创意工坊。">
+  <style>
+    :root {
+      --ink: #1f1d2d;
+      --paper: #f6f3ed;
+      --blue: #43a8df;
+      --cyan: #31c1c9;
+      --pink: #f4a3c1;
+      --yellow: #f6d954;
+      --coral: #ef6d65;
+      --line: rgba(31, 29, 45, .22);
+      --white: #fffaf2;
+      --nav-h: 74px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: calc(var(--nav-h) + 18px);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 18% 8%, rgba(67, 168, 223, .2), transparent 24rem),
+        radial-gradient(circle at 90% 38%, rgba(244, 163, 193, .16), transparent 22rem),
+        linear-gradient(180deg, #f9f6ef 0%, #f2eee5 45%, #171626 45%, #171626 100%);
+      font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .grain {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 50;
+      opacity: .18;
+      mix-blend-mode: multiply;
+      background-image:
+        linear-gradient(90deg, rgba(0, 0, 0, .06) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(0, 0, 0, .04) 1px, transparent 1px);
+      background-size: 4px 4px;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 40;
+      min-height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: .85rem clamp(1rem, 4vw, 3rem);
+      color: var(--white);
+      background: rgba(23, 22, 38, .82);
+      border-bottom: 1px solid rgba(255, 250, 242, .14);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: grid;
+      line-height: 1.1;
+      font-weight: 800;
+    }
+
+    .brand small {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: .72rem;
+      font-weight: 400;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(.65rem, 2.5vw, 1.35rem);
+      font-size: .9rem;
+      white-space: nowrap;
+    }
+
+    .nav-links a {
+      position: relative;
+      opacity: .86;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -.35rem;
+      height: 2px;
+      background: var(--yellow);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .25s ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.is-active {
+      opacity: 1;
+      color: var(--yellow);
+    }
+
+    .nav-links a:hover::after,
+    .nav-links a.is-active::after {
+      transform: scaleX(1);
+    }
+
+    .hero {
+      min-height: 96vh;
+      display: grid;
+      align-items: end;
+      padding: 7rem clamp(1rem, 4vw, 4rem) 2.2rem;
+      color: var(--white);
+      background:
+        linear-gradient(90deg, rgba(23, 22, 38, .12), rgba(23, 22, 38, .42) 44%, rgba(23, 22, 38, .9)),
+        linear-gradient(0deg, rgba(23, 22, 38, .26), rgba(23, 22, 38, .1)),
+        url("assets/hero-ai.png") center / cover no-repeat;
+    }
+
+    .hero-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+      align-items: end;
+      gap: clamp(2rem, 5vw, 5rem);
+    }
+
+    .kicker {
+      display: inline-flex;
+      width: fit-content;
+      padding: .28rem .65rem;
+      border: 1px solid rgba(255, 250, 242, .55);
+      background: rgba(23, 22, 38, .46);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: .78rem;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 1rem 0 .85rem;
+      font-size: clamp(5rem, 12vw, 9.5rem);
+      line-height: .88;
+      letter-spacing: 0;
+    }
+
+    .hero-title-line {
+      display: block;
+      width: max-content;
+      max-width: 100%;
+      letter-spacing: .08em;
+      font-kerning: none;
+    }
+
+    .hero-title-line + .hero-title-line {
+      margin-top: .08em;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(1.05rem, 2vw, 1.45rem);
+      color: rgba(255, 250, 242, .9);
+    }
+
+    .hero-note {
+      align-self: end;
+      padding: 1rem 1.1rem;
+      color: var(--ink);
+      background: var(--yellow);
+      box-shadow: 12px 12px 0 rgba(239, 109, 101, .88);
+      transform: rotate(-2deg);
+    }
+
+    .hero-note b {
+      display: block;
+      margin-bottom: .4rem;
+      font-size: 1.1rem;
+    }
+
+    main {
+      overflow: hidden;
+    }
+
+    .section {
+      padding: clamp(4rem, 8vw, 7rem) clamp(1rem, 4vw, 4rem);
+      scroll-margin-top: calc(var(--nav-h) + 18px);
+    }
+
+    .section.light {
+      background: var(--paper);
+    }
+
+    .section.dark {
+      color: var(--white);
+      background: #171626;
+    }
+
+    .wrap {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(280px, 1.1fr);
+      gap: clamp(1.5rem, 5vw, 4rem);
+      align-items: start;
+      margin-bottom: clamp(2rem, 5vw, 4rem);
+    }
+
+    .eyebrow {
+      margin: 0 0 .4rem;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: .82rem;
+      text-transform: uppercase;
+      color: var(--coral);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 4.8rem);
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    .section-head p {
+      margin: 0;
+      font-size: clamp(1rem, 2vw, 1.24rem);
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .stamp {
+      min-height: 15rem;
+      padding: 1.25rem;
+      border: 1px solid var(--line);
+      background: var(--white);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .stamp:nth-child(2) {
+      background: #dff3f4;
+    }
+
+    .stamp:nth-child(3) {
+      background: #f7e4ed;
+    }
+
+    .stamp-num {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: .85rem;
+      color: rgba(31, 29, 45, .58);
+    }
+
+    .stamp h3 {
+      margin: 0;
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      line-height: 1.08;
+    }
+
+    .stamp p {
+      margin: .8rem 0 0;
+    }
+
+    .ticket-rail {
+      margin-inline: calc(clamp(1rem, 4vw, 4rem) * -1);
+      overflow: hidden;
+      mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    }
+
+    .ticket-track {
+      display: flex;
+      gap: 1rem;
+      width: max-content;
+      padding: .25rem clamp(1rem, 4vw, 4rem);
+      animation: ticketScroll 28s linear infinite;
+    }
+
+    .ticket-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes ticketScroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(calc(-50% - .5rem)); }
+    }
+
+    .ticket {
+      position: relative;
+      flex: 0 0 clamp(260px, 31vw, 380px);
+      min-height: 19rem;
+      padding: 1.15rem;
+      overflow: hidden;
+      border: 1px solid rgba(31, 29, 45, .2);
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .ticket::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 1rem;
+      bottom: 0;
+      border-right: 1px dashed rgba(31, 29, 45, .34);
+    }
+
+    .ticket.blue { background: var(--blue); }
+    .ticket.cyan { background: var(--cyan); }
+    .ticket.pink { background: var(--pink); }
+    .ticket.sand { background: #d9c3a5; }
+    .ticket.navy { background: #17337d; color: var(--white); }
+
+    .ticket strong {
+      display: block;
+      margin: .75rem 1.2rem .75rem 0;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    .ticket small {
+      font-family: Georgia, "Times New Roman", serif;
+      text-transform: uppercase;
+      opacity: .74;
+    }
+
+    .ticket p {
+      margin: 0 1.35rem 0 0;
+      font-size: .98rem;
+    }
+
+    .workshop-cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .workshop-card {
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      min-height: 42rem;
+      border: 1px solid rgba(255, 250, 242, .18);
+      background: rgba(255, 250, 242, .05);
+      overflow: hidden;
+    }
+
+    .workshop-card img {
+      width: 100%;
+      height: 28rem;
+      object-fit: cover;
+    }
+
+    .workshop-body {
+      padding: 1.3rem;
+      min-height: 15rem;
+      display: grid;
+      grid-template-rows: auto 3.6rem 1fr;
+      align-content: start;
+    }
+
+    .workshop-body span {
+      display: inline-grid;
+      place-items: center;
+      width: 2.7rem;
+      aspect-ratio: 1;
+      margin-bottom: 1rem;
+      color: var(--ink);
+      background: var(--yellow);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.4rem;
+    }
+
+    .workshop-body h3 {
+      margin: 0 0 .35rem;
+      font-size: 1.35rem;
+      line-height: 1.2;
+      align-self: end;
+    }
+
+    .workshop-body p {
+      margin: 0;
+      color: rgba(255, 250, 242, .78);
+    }
+
+    .portfolio {
+      display: block;
+    }
+
+    .portfolio-copy {
+      position: relative;
+      --portfolio-shift: 0;
+      min-height: 48rem;
+      padding: clamp(1.4rem, 5vw, 4.5rem);
+      background: var(--cyan);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .portfolio-copy::after {
+      content: "PORTFOLIO PRODUCTION";
+      position: absolute;
+      right: -3rem;
+      top: 3rem;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3rem, 9vw, 8rem);
+      color: rgba(31, 29, 45, .12);
+      transform: rotate(90deg);
+      transform-origin: right top;
+      white-space: nowrap;
+    }
+
+    .portfolio-title {
+      position: relative;
+      z-index: 1;
+      max-width: 12ch;
+      font-size: clamp(4.5rem, 12vw, 10.5rem);
+      line-height: .88;
+      transform: translateX(-1rem);
+      text-shadow:
+        .055em .055em 0 rgba(246, 217, 84, .34),
+        -.035em .085em 0 rgba(239, 109, 101, .3);
+    }
+
+    .portfolio-title::before,
+    .portfolio-title::after {
+      content: attr(data-text);
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .18;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(31, 29, 45, .72);
+      transform: translate3d(calc(var(--portfolio-shift) * 34px), calc(var(--portfolio-shift) * -10px), 0);
+    }
+
+    .portfolio-title::after {
+      opacity: .16;
+      -webkit-text-stroke-color: rgba(255, 250, 242, .74);
+      transform: translate3d(calc(var(--portfolio-shift) * -42px), calc(var(--portfolio-shift) * 14px), 0);
+    }
+
+    .portfolio-title.is-visible {
+      animation: titleNudge 1.4s cubic-bezier(.2, .9, .2, 1) both;
+    }
+
+    @keyframes titleNudge {
+      0% { transform: translateX(-4rem); opacity: 0; }
+      55% { transform: translateX(.65rem); opacity: 1; }
+      100% { transform: translateX(0); opacity: 1; }
+    }
+
+    .checks {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+      margin-top: 3rem;
+    }
+
+    .check {
+      display: flex;
+      gap: .8rem;
+      align-items: flex-start;
+      padding: 1rem;
+      border-top: 1px solid rgba(31, 29, 45, .25);
+      font-size: 1.05rem;
+    }
+
+    .check i {
+      flex: 0 0 auto;
+      width: 1.4rem;
+      aspect-ratio: 1;
+      margin-top: .28rem;
+      background: var(--yellow);
+      clip-path: polygon(14% 50%, 33% 70%, 86% 16%, 100% 30%, 34% 96%, 0 62%);
+    }
+
+    .team-band {
+      background:
+        linear-gradient(180deg, rgba(246, 243, 237, .84), rgba(246, 243, 237, .98)),
+        url("assets/team-top.jpg") center top / cover no-repeat;
+    }
+
+    .teacher-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.1rem;
+      margin-top: 2.2rem;
+    }
+
+    .teacher {
+      position: relative;
+      min-height: 42rem;
+      border: 1px solid var(--line);
+      background: rgba(255, 250, 242, .88);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .teacher::before {
+      content: attr(data-number);
+      position: absolute;
+      top: .2rem;
+      right: .9rem;
+      z-index: 1;
+      color: rgba(31, 29, 45, .12);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(4rem, 9vw, 7rem);
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .teacher img {
+      width: 100%;
+      height: 22rem;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .teacher-text {
+      position: relative;
+      z-index: 2;
+      padding: 1.15rem;
+      display: grid;
+      gap: .8rem;
+    }
+
+    .teacher strong {
+      font-size: clamp(1.45rem, 2vw, 2rem);
+      line-height: 1.15;
+    }
+
+    .teacher h3 {
+      margin: 0;
+      color: var(--blue);
+      font-size: 1.05rem;
+      line-height: 1.25;
+    }
+
+    .teacher-role {
+      margin: 0;
+      color: var(--coral);
+      font-size: .94rem;
+      font-weight: 800;
+      line-height: 1.55;
+    }
+
+    .teacher-role::before,
+    .teacher-list::before,
+    .teacher-bio::before {
+      display: block;
+      margin-bottom: .28rem;
+      color: rgba(31, 29, 45, .5);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .02em;
+      text-transform: uppercase;
+    }
+
+    .teacher-role::before {
+      content: "Profile";
+    }
+
+    .teacher-list::before {
+      content: "Works / Projects";
+      margin-left: -1.05rem;
+    }
+
+    .teacher-bio::before {
+      content: "Bio";
+      margin-bottom: .35rem;
+    }
+
+    .teacher p {
+      margin: 0;
+    }
+
+    .teacher small {
+      color: rgba(31, 29, 45, .58);
+      font-family: Georgia, "Times New Roman", serif;
+      text-transform: uppercase;
+    }
+
+    .teacher-list {
+      margin: 0;
+      padding: 0 0 0 1.05rem;
+      display: grid;
+      gap: .34rem;
+      font-size: .94rem;
+      line-height: 1.55;
+      padding-top: .75rem;
+      border-top: 1px solid rgba(31, 29, 45, .16);
+    }
+
+    .teacher-list li::marker {
+      color: var(--yellow);
+    }
+
+    .teacher-bio {
+      padding-top: .75rem;
+      border-top: 1px solid rgba(31, 29, 45, .16);
+      color: rgba(31, 29, 45, .78);
+      font-size: .96rem;
+      line-height: 1.7;
+    }
+
+    .contact {
+      display: grid;
+      grid-template-columns: minmax(280px, .9fr) minmax(0, 1.1fr);
+      gap: clamp(1.5rem, 5vw, 4rem);
+      align-items: stretch;
+    }
+
+    .contact-card {
+      padding: clamp(1.4rem, 4vw, 2.8rem);
+      background: var(--white);
+      color: var(--ink);
+    }
+
+    .contact-card dl {
+      margin: 1.5rem 0 0;
+      display: grid;
+      gap: 1rem;
+    }
+
+    .contact-card div {
+      display: grid;
+      grid-template-columns: 5.5rem minmax(0, 1fr);
+      gap: 1rem;
+      border-top: 1px solid var(--line);
+      padding-top: 1rem;
+    }
+
+    .wechat-row dd {
+      display: block;
+    }
+
+    .wechat-thumb {
+      width: min(18rem, 100%);
+      aspect-ratio: 1;
+      padding: .5rem;
+      border: 1px solid rgba(31, 29, 45, .18);
+      background: var(--paper);
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    dt {
+      color: rgba(31, 29, 45, .58);
+    }
+
+    dd {
+      margin: 0;
+      font-weight: 700;
+    }
+
+    .map-link {
+      display: grid;
+      grid-template-columns: 4rem minmax(0, 1fr);
+      gap: 1rem;
+      align-items: center;
+      margin-top: 1rem;
+      padding: 1rem;
+      color: var(--ink);
+      background: var(--yellow);
+      box-shadow: 10px 10px 0 var(--coral);
+      font-weight: 800;
+    }
+
+    .map-pin {
+      display: grid;
+      place-items: center;
+      width: 4rem;
+      aspect-ratio: 1;
+      color: var(--white);
+      background: var(--ink);
+      clip-path: polygon(50% 0, 100% 35%, 82% 100%, 50% 76%, 18% 100%, 0 35%);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1rem;
+    }
+
+    .map-panel {
+      position: relative;
+      min-height: 100%;
+      padding: 1rem;
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .map-panel img {
+      width: 100%;
+      height: 100%;
+      min-height: 25rem;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .map-label {
+      position: absolute;
+      left: clamp(1.4rem, 4vw, 3rem);
+      right: clamp(1.4rem, 4vw, 3rem);
+      bottom: clamp(1.4rem, 4vw, 2.5rem);
+      display: grid;
+      grid-template-columns: 4.2rem minmax(0, 1fr);
+      gap: .9rem;
+      align-items: center;
+      padding: 1rem;
+      color: var(--ink);
+      background: rgba(246, 217, 84, .94);
+      box-shadow: 10px 10px 0 rgba(239, 109, 101, .88);
+      font-weight: 900;
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+
+    .map-label:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 13px 13px 0 rgba(239, 109, 101, .88);
+    }
+
+    .map-label small {
+      display: block;
+      color: rgba(31, 29, 45, .62);
+      font-family: Georgia, "Times New Roman", serif;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .contact-slogan {
+      width: min(1180px, 100%);
+      margin: clamp(1.5rem, 4vw, 3rem) auto 0;
+      overflow: hidden;
+      border-block: 1px solid rgba(255, 250, 242, .18);
+    }
+
+    .slogan-track {
+      display: flex;
+      width: max-content;
+      padding: .8rem 0;
+      animation: sloganScroll 14s linear infinite;
+      will-change: transform;
+    }
+
+    .slogan-track span {
+      padding-right: 2rem;
+      color: var(--white);
+      font-size: clamp(2rem, 6vw, 5.8rem);
+      font-weight: 900;
+      line-height: .95;
+      white-space: nowrap;
+      text-shadow:
+        .06em .06em 0 rgba(239, 109, 101, .78),
+        .11em .11em 0 rgba(246, 217, 84, .34);
+    }
+
+    @keyframes sloganScroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    footer {
+      padding: 1.2rem clamp(1rem, 4vw, 4rem);
+      color: rgba(255, 250, 242, .72);
+      background: #171626;
+      border-top: 1px solid rgba(255, 250, 242, .16);
+      font-size: .9rem;
+    }
+
+    footer .wrap {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .ticket-track,
+      .portfolio-title.is-visible,
+      .slogan-track {
+        animation: none;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .hero-inner,
+      .section-head,
+      .contact {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        background-position: 38% center;
+      }
+
+      .hero-note {
+        max-width: 24rem;
+      }
+
+      .intro-grid,
+      .workshop-cards,
+      .teacher-grid,
+      .checks {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .teacher-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      :root {
+        --nav-h: 92px;
+      }
+
+      .nav {
+        align-items: start;
+      }
+
+      .nav-links {
+        max-width: 15rem;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        row-gap: .35rem;
+        font-size: .78rem;
+      }
+
+      h1 {
+        font-size: clamp(3.6rem, 20vw, 5.4rem);
+      }
+
+      .hero {
+        min-height: 94vh;
+        padding-top: 8rem;
+      }
+
+      .intro-grid,
+      .workshop-cards,
+      .teacher-grid,
+      .checks {
+        grid-template-columns: 1fr;
+      }
+
+      .workshop-card {
+        min-height: auto;
+      }
+
+      .workshop-card img {
+        height: 24rem;
+      }
+
+      .portfolio-copy {
+        min-height: 42rem;
+      }
+
+      .portfolio-title {
+        font-size: clamp(3.6rem, 18vw, 6.2rem);
+      }
+
+      .contact-card div {
+        grid-template-columns: 1fr;
+        gap: .2rem;
+      }
+
+      .map-label {
+        grid-template-columns: 1fr;
+      }
+
+      .slogan-track span {
+        white-space: normal;
+        max-width: 22rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <nav class="nav" aria-label="主导航">
+    <a class="brand" href="#top" aria-label="回到首页">
+      <span>搞点逸术</span>
+      <small>Guardian Art</small>
+    </a>
+    <div class="nav-links">
+      <a href="#about">工作室</a>
+      <a href="#workshops">主题</a>
+      <a href="#portfolio">作品集</a>
+      <a href="#team">师资</a>
+      <a href="#contact">联系</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <div class="hero-inner">
+      <div>
+        <span class="kicker">Art Workshop · Portfolio · Postgraduate</span>
+        <h1><span class="hero-title-line">搞点逸术</span><span class="hero-title-line">工作室</span></h1>
+        <p class="hero-copy">一个以艺术交叉为主的创意工坊，面向舞蹈、戏剧、影视等相关艺术背景的创作者与爱好者。</p>
+      </div>
+      <aside class="hero-note">
+        <b>没有标准答案</b>
+        只有与你环环相扣的创意高光。把脑海里的故事装进影像，把身体、现场与作品集重新组织成你的艺术语言。
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section class="section light" id="about">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">Act 01 / Opening</p>
+            <h2>从兴趣到专业，先给创作一个能呼吸的空间。</h2>
+          </div>
+          <p>「搞点逸术」关注艺术创作的台前幕后：身体、镜头、文本、心理、装置、作品集与升学路径。它不急着把人塞进单一模版，而是陪你拆解目标、磨细节、找到可以持续生长的表达方式。</p>
+        </div>
+
+        <div class="intro-grid">
+          <article class="stamp reveal">
+            <span class="stamp-num">01</span>
+            <div>
+              <h3>陪你打磨细节</h3>
+              <p>从动作的情绪张力，到作品集的逻辑串联，让每一页都在说你的故事。</p>
+            </div>
+          </article>
+          <article class="stamp reveal">
+            <span class="stamp-num">02</span>
+            <div>
+              <h3>允许跨界混合</h3>
+              <p>舞蹈、戏剧、影视、疗愈与视觉表达在这里彼此借光。</p>
+            </div>
+          </article>
+          <article class="stamp reveal">
+            <span class="stamp-num">03</span>
+            <div>
+              <h3>反内卷，但不松散</h3>
+              <p>方向对了，努力才有意义。用清晰路径替代焦虑消耗。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark" id="workshops">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">Act 02 / Workshops</p>
+            <h2>五个入口，进入你的艺术现场。</h2>
+          </div>
+          <p>从肢体到戏剧到影像，从舞动到表达再到疗愈，总有一款适合你。每个主题都可以独立体验，也可以组合成更完整的成长路线。</p>
+        </div>
+      </div>
+
+      <div class="ticket-rail" aria-label="主题模块横向滚动">
+        <div class="ticket-track">
+          <article class="ticket blue reveal">
+            <small>Art Workshop</small>
+            <strong>艺术工作坊</strong>
+            <p>在体验中找到自己的艺术语言，适合跨媒介创作者和艺术爱好者。</p>
+          </article>
+          <article class="ticket cyan reveal">
+            <small>Portfolio Production</small>
+            <strong>作品集制作</strong>
+            <p>从 0 到 1 定制选题、素材、呈现和叙事线。</p>
+          </article>
+          <article class="ticket pink reveal">
+            <small>Postgraduate Entrance Exam</small>
+            <strong>考研升学</strong>
+            <p>聚焦艺术院校与专业方向，拆解备考节奏与作品表达。</p>
+          </article>
+          <article class="ticket sand reveal">
+            <small>Faculty Introduction</small>
+            <strong>师资介绍</strong>
+            <p>由舞蹈、戏剧、影视及艺术研究背景的导师共同支持。</p>
+          </article>
+          <article class="ticket navy reveal">
+            <small>Venue Introduction</small>
+            <strong>场地介绍</strong>
+            <p>在北京朝阳的艺术街区里，把空间变成创作的一部分。</p>
+          </article>
+          <article class="ticket blue" aria-hidden="true">
+            <small>Art Workshop</small>
+            <strong>艺术工作坊</strong>
+            <p>在体验中找到自己的艺术语言，适合跨媒介创作者和艺术爱好者。</p>
+          </article>
+          <article class="ticket cyan" aria-hidden="true">
+            <small>Portfolio Production</small>
+            <strong>作品集制作</strong>
+            <p>从 0 到 1 定制选题、素材、呈现和叙事线。</p>
+          </article>
+          <article class="ticket pink" aria-hidden="true">
+            <small>Postgraduate Entrance Exam</small>
+            <strong>考研升学</strong>
+            <p>聚焦艺术院校与专业方向，拆解备考节奏与作品表达。</p>
+          </article>
+          <article class="ticket sand" aria-hidden="true">
+            <small>Faculty Introduction</small>
+            <strong>师资介绍</strong>
+            <p>由舞蹈、戏剧、影视及艺术研究背景的导师共同支持。</p>
+          </article>
+          <article class="ticket navy" aria-hidden="true">
+            <small>Venue Introduction</small>
+            <strong>场地介绍</strong>
+            <p>在北京朝阳的艺术街区里，把空间变成创作的一部分。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark">
+      <div class="wrap">
+        <div class="workshop-cards">
+          <article class="workshop-card reveal">
+            <img src="assets/workshop-dance.png" alt="舞蹈影像工作坊插画">
+            <div class="workshop-body">
+              <span>1</span>
+              <h3>舞蹈影像工作坊</h3>
+              <p>用镜头写诗，学习创意策划、肢体编排、视听语言、后期剪辑与制片管理。</p>
+            </div>
+          </article>
+          <article class="workshop-card reveal">
+            <img src="assets/workshop-therapy.png" alt="艺术治疗工作坊插画">
+            <div class="workshop-body">
+              <span>2</span>
+              <h3>艺术治疗工作坊</h3>
+              <p>以舞动治疗、戏剧治疗为主，释放压力，学会与自己温柔对话。</p>
+            </div>
+          </article>
+          <article class="workshop-card reveal">
+            <img src="assets/workshop-theatre.png" alt="戏剧创意工作坊插画">
+            <div class="workshop-body">
+              <span>3</span>
+              <h3>戏剧创意工作坊</h3>
+              <p>没有固定剧本，只有你的故事。把脑洞变成可触摸的现场。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section light" id="portfolio">
+      <div class="wrap portfolio">
+        <div class="portfolio-copy reveal">
+          <div>
+            <p class="eyebrow">Act 03 / Portfolio</p>
+            <h2 class="portfolio-title reveal" data-text="你的独特，才是最硬的竞争力。">你的独特，才是最硬的竞争力。</h2>
+          </div>
+          <div class="checks">
+            <div class="check"><i></i><span><b>1v1 定制方案：</b>根据目标院校、专业和风格，拆解核心要求，确定有记忆点的选题。</span></div>
+            <div class="check"><i></i><span><b>全流程陪跑：</b>从创作构思、素材积累到最终呈现，导师持续跟进。</span></div>
+            <div class="check"><i></i><span><b>细节打磨：</b>让作品集的每一页都拥有清楚的情绪、逻辑和节奏。</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section light team-band" id="team">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div>
+            <p class="eyebrow">Act 04 / Faculty</p>
+            <h2>核心师资，不只讲方法，也陪你把方向拧准。</h2>
+          </div>
+          <p>团队由艺术研究、舞蹈、戏剧、影视与跨媒介创作背景的导师组成，适合正在准备作品集、升学、跨专业表达或寻找创作出口的人。</p>
+        </div>
+        <div class="teacher-grid">
+          <article class="teacher reveal" data-number="01">
+            <img src="assets/faculty/faculty-01.jpg" alt="林逸婧照片">
+            <div class="teacher-text">
+              <small>Screen Dance</small>
+              <strong>林逸婧</strong>
+              <h3>舞蹈影像版块负责人</h3>
+              <p class="teacher-role">搞点逸术 GuardianArt 主理人 / 舞蹈影像导演 / 音乐剧演员&编舞</p>
+              <ul class="teacher-list">
+                <li>舞蹈影像《盒和合》《回我》《蚂蚁》《丹漆》</li>
+                <li>优衣库舞蹈广告《遇见传奇》、奥美生活舞蹈广告《守护你的美丽时刻》</li>
+                <li>CETV 第八、九届音乐剧“学院奖”颁奖典礼</li>
+                <li>音乐剧《凝望云冈》《愚公移山》《大创先生》《京宴》</li>
+              </ul>
+              <p class="teacher-bio">本科毕业于北京舞蹈学院舞蹈学系，中国艺术研究院戏剧影视表演 MFA，北京舞蹈家协会会员。担任导演和执行导演的多部舞蹈影像作品获国内外舞蹈影像节、电影节、广告赛事大奖。</p>
+            </div>
+          </article>
+          <article class="teacher reveal" data-number="02">
+            <img src="assets/faculty/faculty-02.jpg" alt="单炯炜照片">
+            <div class="teacher-text">
+              <small>Drama Performance</small>
+              <strong>单炯炜</strong>
+              <h3>戏剧表演版块负责人</h3>
+              <p class="teacher-role">搞点逸术 GuardianArt 联合创始人 / 北京拾木剧团主理人 / 拾人表演工作室创始人</p>
+              <ul class="teacher-list">
+                <li>话剧《无事生非》《海鸥》《蝴蝶是自由的》</li>
+                <li>话剧《灵魂拒葬》《回廊亭杀人事件》《两个人》</li>
+                <li>电影《偶爱之名》《雾中来的人 2037》《战友》</li>
+                <li>微电影《原来你还在这里》《蓝色的房间》《深渊》</li>
+              </ul>
+              <p class="teacher-bio">本科毕业于中央戏剧学院话剧影视表演专业，中央戏剧学院优秀毕业生，中央戏剧学院优秀毕业论文作者，曾任中央戏剧学院实验剧团演员。</p>
+            </div>
+          </article>
+          <article class="teacher reveal" data-number="03">
+            <img src="assets/faculty/faculty-03.jpg" alt="陈淳文照片">
+            <div class="teacher-text">
+              <small>Art Therapy</small>
+              <strong>陈淳文</strong>
+              <h3>艺术疗愈版块负责人</h3>
+              <p class="teacher-role">现任高校舞蹈治疗教师 / 德国舞动治疗师 BTD（受训中）/ 表达性艺术治疗师（受训中）</p>
+              <ul class="teacher-list">
+                <li>常驻北京安定医院、北京回龙观医院病区，进行青少年及成人舞动团体工作</li>
+                <li>曾在中国人民大学、北京大学、中国农业大学等高校开展主题活动</li>
+                <li>发表《舞蹈干预情绪研究综述》《舞蹈课程干预自闭症儿童的效果研究》等研究</li>
+              </ul>
+              <p class="teacher-bio">本硕毕业于北京舞蹈学院舞蹈学系，中国艺术医学协会会员，长期专注舞蹈教育与舞蹈治疗，以专业理论为基础构建独特教学与治疗逻辑。</p>
+            </div>
+          </article>
+          <article class="teacher reveal" data-number="04">
+            <img src="assets/faculty/faculty-04.jpg" alt="孟泽权照片">
+            <div class="teacher-text">
+              <small>Musical</small>
+              <strong>孟泽权</strong>
+              <h3>音乐剧版块负责人</h3>
+              <p class="teacher-role">音乐剧导演 / 编舞 / 演员</p>
+              <ul class="teacher-list">
+                <li>音乐剧《凝望云冈》《愚公移山》《大创先生》《摩登明星梦》</li>
+                <li>情景史诗文艺演出《伟大征程》</li>
+                <li>中国音乐剧协会创作委员会项目《因乐聚》</li>
+                <li>第 11 届艾荣奖颁奖典礼、2025 微短剧之夜</li>
+              </ul>
+              <p class="teacher-bio">本科毕业于北京舞蹈学院音乐剧系，北京大学艺术学院音乐剧 MFA（第 1 名），北京大学艺术学院艺术学博士，北京市优秀毕业生。</p>
+            </div>
+          </article>
+          <article class="teacher reveal" data-number="05">
+            <img src="assets/faculty/faculty-05.jpg" alt="黄紫菱照片">
+            <div class="teacher-text">
+              <small>Choreography</small>
+              <strong>黄紫菱</strong>
+              <h3>舞蹈编创版块负责人</h3>
+              <p class="teacher-role">舞者 / 演员 / 编导</p>
+              <ul class="teacher-list">
+                <li>当代舞《禾戏剧·大师之夜》、70 周年音乐舞蹈史诗《奋斗吧 中华儿女》</li>
+                <li>100 周年情景史诗文艺演出《伟大征程》、舞蹈诗《那些故事》</li>
+                <li>荷花奖&全国舞蹈展演入选剧目《娘想你们啊》</li>
+                <li>舞蹈影像《回我》《Turn out》《Once Again》</li>
+              </ul>
+              <p class="teacher-bio">本科毕业于北京舞蹈学院编导系，曾获韩国国际现代舞比赛 KICDC 成年组铜奖，先后推进顶尖舞者全国赛、意大利国际舞蹈人才大赛等国际赛事。</p>
+            </div>
+          </article>
+          <article class="teacher reveal" data-number="06">
+            <img src="assets/faculty/faculty-06.jpg" alt="庄智恒照片">
+            <div class="teacher-text">
+              <small>Contemporary Dance</small>
+              <strong>庄智恒</strong>
+              <h3>现代舞版块负责人</h3>
+              <p class="teacher-role">舞者 / 编导</p>
+              <ul class="teacher-list">
+                <li>当代舞《禾戏剧·大师之夜》、国家艺术基金现代舞作品《呐喊》</li>
+                <li>北京艺术基金舞剧《京宴》、舞蹈诗《向前 向前》</li>
+                <li>任冬生工作坊作品《界》</li>
+                <li>舞蹈影像《假如》《PAPER》《嘿！哥们》《IN MY DREAM》</li>
+              </ul>
+              <p class="teacher-bio">本科毕业于北京舞蹈学院现代舞系，北京雷动天下现代舞团舞者，合作编舞家包括曹诚渊、阿迪亚、刘斌、吴冕等，作品曾入围国内外舞蹈影像节。</p>
+            </div>
+          </article>
+          <article class="teacher reveal" data-number="07">
+            <img src="assets/faculty/faculty-07.jpg" alt="丁戎融照片">
+            <div class="teacher-text">
+              <small>Popular Dance</small>
+              <strong>丁戎融</strong>
+              <h3>流行舞版块负责人</h3>
+              <p class="teacher-role">舞者 / 流行舞&国标舞编舞 / 舞蹈博士</p>
+              <ul class="teacher-list">
+                <li>第 13 届桃李杯街舞获奖作品《泰兵舞蹈》</li>
+                <li>情景史诗文艺演出《伟大征程》、四川艺术基金藏族舞蹈人才培养项目《点上舞》</li>
+                <li>湖南卫视芒果 TV《恋爱告急》、快手年度盛典“最美十蹈甜心”</li>
+                <li>舞蹈影像《影舞相生》《盒与合》《Ctrl Alt C》《炭烧电子人》</li>
+              </ul>
+              <p class="teacher-bio">本科毕业于北京舞蹈学院舞蹈学系，北京舞蹈学院外国舞表演研究与奥克兰大学舞蹈教育双硕士学位。曾任舞蹈风暴青少年组全国总决赛评委，并多次为明星编舞。</p>
+            </div>
+          </article>
+          <article class="teacher reveal" data-number="08">
+            <img src="assets/faculty/faculty-08.jpg" alt="邓馨文照片">
+            <div class="teacher-text">
+              <small>Portfolio</small>
+              <strong>邓馨文</strong>
+              <h3>留学版块负责人</h3>
+              <p class="teacher-role">舞评人 / 舞蹈理论研究者 / 制作人</p>
+              <ul class="teacher-list">
+                <li>纽约大学表演研究与舞蹈教育双硕士</li>
+                <li>美国舞蹈学协会、国际表演研究协会、国际舞蹈委员会成员</li>
+                <li>科研与制作项目：《探析后现代舞中行动绘画现象》《模仿、创造与抵抗》</li>
+                <li>2026 年殷梅舞团《Half the Sky》亚洲协会演出制作与宣传经理</li>
+              </ul>
+              <p class="teacher-bio">留美期间曾任殷梅舞团经理助理、利蒙现代舞团实习，主要研究美国后现代舞、中国现当代舞与舞蹈跨文化传播，创作影像作品多次入围国内外舞蹈影像节。</p>
+            </div>
+          </article>
+          <article class="teacher reveal" data-number="09">
+            <img src="assets/faculty/faculty-09.jpg" alt="刘媛清照片">
+            <div class="teacher-text">
+              <small>Creative Production</small>
+              <strong>刘媛清</strong>
+              <h3>创意制片版块负责人</h3>
+              <p class="teacher-role">戏剧制作人 / 影像制片 / 导演 / 舞台监督</p>
+              <ul class="teacher-list">
+                <li>音乐戏剧《不在梅边在柳边》、老舍喜剧《西望长安》</li>
+                <li>肢体戏剧《俯立千年》、音乐剧《冬城女人》</li>
+                <li>跨媒介戏剧《犀牛》、多媒体戏剧《艺术》</li>
+                <li>舞蹈影像《我的答案》《抖肩舞》（北舞版）、短片《直行左转》</li>
+              </ul>
+              <p class="teacher-bio">本硕毕业于北京舞蹈学院艺术传播系艺术管理专业，曾于中国台湾中国文化大学戏剧系交换，参与制作多部大型舞台作品、小剧场作品与舞蹈影像作品。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark" id="contact">
+      <div class="wrap contact">
+        <div class="contact-card reveal">
+          <p class="eyebrow">Act 05 / Venue</p>
+          <h2>来西店记忆，搞点真的创作。</h2>
+          <dl>
+            <div>
+              <dt>地址</dt>
+              <dd>北京市朝阳区高碑店地区东方金叶文创园 A5，西店记忆附近</dd>
+            </div>
+            <div class="wechat-row">
+              <dt>公众号</dt>
+              <dd>
+                <img class="wechat-thumb" src="assets/wechat-qr.jpg" alt="搞点逸术官方公众号二维码">
+                <span>搞点逸术官方公众号</span>
+              </dd>
+            </div>
+          </dl>
+          <a class="map-link" href="https://map.baidu.com/search/北京市朝阳区高碑店地区东方金叶文创园%20A5%20西店记忆附近" target="_blank" rel="noreferrer">
+            <span class="map-pin">ART</span>
+            <span>在地图中打开门店位置</span>
+          </a>
+        </div>
+        <div class="map-panel reveal">
+          <img src="assets/map-location-ai.png" alt="东方金叶文创园 A5 门店位置示意图">
+          <div class="map-label">
+            <span class="map-pin">A5</span>
+            <span>
+              <small>Guardian Art Location</small>
+              北京市朝阳区高碑店地区东方金叶文创园 A5，西店记忆附近
+            </span>
+          </div>
+        </div>
+      </div>
+      <div class="contact-slogan reveal" aria-label="工作室口号">
+        <div class="slogan-track">
+          <span>在这里，没有“上课下课”的界限，只有“随时可以创作”的自由。</span>
+          <span>在这里，没有“上课下课”的界限，只有“随时可以创作”的自由。</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© 2026 搞点逸术 Guardian Art</span>
+      <span>Art Workshop · Portfolio Production · Postgraduate Entrance Exam</span>
+    </div>
+  </footer>
+
+  <script>
+    const navLinks = [...document.querySelectorAll(".nav-links a, .brand")];
+    const sections = [...document.querySelectorAll("header[id], section[id]")];
+
+    navLinks.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const hash = link.getAttribute("href");
+        if (!hash || !hash.startsWith("#")) return;
+        const target = document.querySelector(hash);
+        if (!target) return;
+        event.preventDefault();
+        const navHeight = document.querySelector(".nav").offsetHeight;
+        const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 14;
+        window.scrollTo({ top, behavior: "smooth" });
+        history.pushState(null, "", hash);
+      });
+    });
+
+    const reveals = document.querySelectorAll(".reveal");
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    reveals.forEach((item) => revealObserver.observe(item));
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        document.querySelectorAll(".nav-links a").forEach((link) => {
+          link.classList.toggle("is-active", link.getAttribute("href") === `#${entry.target.id}`);
+        });
+      });
+    }, { rootMargin: "-35% 0px -55% 0px", threshold: 0 });
+
+    sections.forEach((section) => sectionObserver.observe(section));
+
+    const portfolioPanel = document.querySelector(".portfolio-copy");
+    const updateScrollArt = () => {
+      if (!portfolioPanel) return;
+      const rect = portfolioPanel.getBoundingClientRect();
+      const viewport = window.innerHeight || document.documentElement.clientHeight;
+      const progress = Math.min(1, Math.max(-1, (viewport * .55 - rect.top) / viewport));
+      portfolioPanel.style.setProperty("--portfolio-shift", progress.toFixed(3));
+    };
+
+    updateScrollArt();
+    window.addEventListener("scroll", updateScrollArt, { passive: true });
+    window.addEventListener("resize", updateScrollArt);
+  </script>
+</body>
+</html>
