@@ -523,7 +523,7 @@ function ActHeader({
           <span className="h-px bg-[var(--yellow)]" />
           <span className="h-px bg-[var(--coral)]" />
         </div>
-        <p className={`m-0 max-w-[1040px] text-[clamp(1.02rem,1.55vw,1.25rem)] leading-[1.78] ${dark ? "text-[rgba(255,250,242,.88)]" : "text-[rgba(31,29,45,.74)]"}`}>
+        <p className={`m-0 grid max-w-none gap-2 text-[clamp(1.02rem,1.55vw,1.25rem)] leading-[1.78] ${dark ? "text-[rgba(255,250,242,.88)]" : "text-[rgba(31,29,45,.74)]"}`}>
           {body}
         </p>
       </div>
@@ -658,7 +658,12 @@ function Services() {
         <ActHeader
           eyebrow="Act 02 / Core Services"
           title="三大核心业务，覆盖从兴趣到专业的全路径。"
-          body="你可以先从一次工作坊体验进入，也可以带着作品集、升学、跨专业表达等更明确的目标来。我们会根据你的阶段，把体验、训练、创作与呈现串成一条能走下去的路线。"
+          body={
+            <>
+              <span>你可以先从一次工作坊体验进入，也可以带着作品集、升学、跨专业表达等更明确的目标来。</span>
+              <span>我们会根据你的阶段，把体验、训练、创作与呈现串成一条能走下去的路线。</span>
+            </>
+          }
         />
         <WorkshopSlider tickets={serviceTickets} />
       </div>
