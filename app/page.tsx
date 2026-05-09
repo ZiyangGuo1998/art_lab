@@ -954,9 +954,6 @@ function Contact() {
                 <h3 className="m-0 max-w-[34rem] text-[clamp(1.55rem,2.2vw,2.55rem)] leading-[1.05]">
                   北京市朝阳区高碑店地区东方金叶文创园 A5
                 </h3>
-                <p className="m-0 mt-3 max-w-[36rem] border-t border-[rgba(31,29,45,.18)] pt-3 text-[.96rem] font-bold">
-                  西店记忆附近，到现场一起排练、拍摄、交流和创作。
-                </p>
                 <ExpectedVisitTime />
               </div>
             </div>

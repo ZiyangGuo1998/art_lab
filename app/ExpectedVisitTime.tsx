@@ -12,9 +12,9 @@ function getTodayValue() {
 }
 
 export function ExpectedVisitTime() {
-  const [visitDate, setVisitDate] = useState("");
-  const [visitTime, setVisitTime] = useState("");
   const todayValue = useMemo(() => getTodayValue(), []);
+  const [visitDate, setVisitDate] = useState(todayValue);
+  const [visitTime, setVisitTime] = useState("14:00");
 
   const message = useMemo(() => {
     if (!visitDate && !visitTime) {
