@@ -1,0 +1,187 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #1f1d2d;
+  --paper: #f6f3ed;
+  --blue: #43a8df;
+  --cyan: #31c1c9;
+  --pink: #f4a3c1;
+  --yellow: #f6d954;
+  --coral: #ef6d65;
+  --line: rgba(31, 29, 45, 0.22);
+  --white: #fffaf2;
+  --nav-h: 74px;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--nav-h) + 18px);
+  }
+
+  body {
+    margin: 0;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 18% 8%, rgba(67, 168, 223, 0.2), transparent 24rem),
+      radial-gradient(circle at 90% 38%, rgba(244, 163, 193, 0.16), transparent 22rem),
+      linear-gradient(180deg, #f9f6ef 0%, #f2eee5 45%, #171626 45%, #171626 100%);
+    font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
+    line-height: 1.65;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: Georgia, "Times New Roman", serif;
+  }
+
+  .grain {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    opacity: 0.18;
+    mix-blend-mode: multiply;
+    background-image:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    background-size: 4px 4px;
+  }
+
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.35rem;
+    height: 2px;
+    background: var(--yellow);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+
+  .nav-link:hover,
+  .nav-link.is-active {
+    color: var(--yellow);
+    opacity: 1;
+  }
+
+  .nav-link:hover::after,
+  .nav-link.is-active::after {
+    transform: scaleX(1);
+  }
+
+  .ticket::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 1rem;
+    bottom: 0;
+    border-right: 1px dashed rgba(31, 29, 45, 0.34);
+  }
+
+  .teacher-card::before {
+    content: attr(data-number);
+    position: absolute;
+    top: 0.2rem;
+    right: 0.9rem;
+    z-index: 1;
+    color: rgba(31, 29, 45, 0.12);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(4rem, 9vw, 7rem);
+    font-weight: 800;
+    line-height: 1;
+  }
+
+  .teacher-role::before,
+  .teacher-list::before,
+  .teacher-bio::before {
+    display: block;
+    margin-bottom: 0.28rem;
+    color: rgba(31, 29, 45, 0.5);
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .teacher-role::before {
+    content: "Profile";
+  }
+
+  .teacher-list::before {
+    content: "Works / Projects";
+    margin-left: -1.05rem;
+  }
+
+  .teacher-bio::before {
+    content: "Bio";
+    margin-bottom: 0.35rem;
+  }
+
+  .teacher-list li::marker {
+    color: var(--yellow);
+  }
+
+  .map-pin {
+    clip-path: polygon(50% 0, 100% 35%, 82% 100%, 50% 76%, 18% 100%, 0 35%);
+  }
+
+  .slogan-track {
+    animation: slogan-scroll 18s linear infinite;
+    will-change: transform;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(22px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slogan-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-33.333%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .slogan-track {
+    animation: none;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --nav-h: 92px;
+  }
+}
