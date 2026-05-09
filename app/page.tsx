@@ -938,17 +938,21 @@ function Contact() {
                   </span>
                   <span className="h-px flex-1 bg-[rgba(255,250,242,.16)]" />
                 </div>
-                <div className="grid grid-cols-4 gap-2.5 max-[820px]:grid-cols-2">
+                <article className="overflow-hidden bg-[rgba(255,250,242,.9)] text-[var(--ink)]">
+                  <img
+                    className="aspect-[1983/793] w-full bg-[#17337d] object-cover"
+                    src="/assets/takeaway-strip-ai.png"
+                    alt="形象照、作品集录制、创意 idea 和全新自己的抽象拼贴组合插图"
+                  />
+                  <div className="grid grid-cols-4 max-[820px]:grid-cols-2">
                   {contactTakeaways.map((item) => (
-                    <article key={item.title} className="overflow-hidden bg-[rgba(255,250,242,.9)] text-[var(--ink)]">
-                      <img className="aspect-[2/3] w-full bg-[#17337d] object-contain" src={item.image} alt={`${item.title}的抽象拼贴插图`} />
-                      <div className="grid min-h-[4.25rem] content-start gap-1.5 p-2">
+                      <div key={item.title} className="grid min-h-[4.25rem] content-start gap-1.5 border-r border-[rgba(31,29,45,.12)] p-2 last:border-r-0">
                         <small className="font-display text-[.7rem] text-[var(--coral)]">{item.label}</small>
                         <strong className="text-[clamp(.82rem,1vw,1rem)] leading-[1.2]">{item.title}</strong>
                       </div>
-                    </article>
                   ))}
-                </div>
+                  </div>
+                </article>
               </div>
             </div>
           </article>
