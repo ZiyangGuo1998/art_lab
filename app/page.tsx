@@ -768,6 +768,9 @@ function Portfolio() {
 }
 
 function Faculty() {
+  const primaryTeachers = featuredTeachers.slice(0, 3);
+  const rotatingTeachers = featuredTeachers.slice(3);
+
   return (
     <section className={`${sectionClass} bg-[#171626] text-[var(--white)]`} id="team">
       <div className={wideWrapClass}>
@@ -808,7 +811,7 @@ function Faculty() {
         </div>
 
         <div className="grid grid-cols-3 gap-[1.1rem] max-[1100px]:grid-cols-2 max-[700px]:grid-cols-1">
-          {featuredTeachers.map((teacher) => (
+          {primaryTeachers.map((teacher) => (
             <article
               key={teacher.name}
               className="teacher-card reveal relative flex flex-col overflow-hidden border border-[rgba(255,250,242,.18)] bg-[rgba(255,250,242,.94)] text-[var(--ink)]"
@@ -833,6 +836,51 @@ function Faculty() {
               </div>
             </article>
           ))}
+        </div>
+
+        <div className="reveal mt-[clamp(1.4rem,4vw,3rem)]">
+          <div className="mb-4 flex items-end justify-between gap-4 max-[720px]:items-start max-[720px]:flex-col">
+            <div>
+              <Eyebrow>Faculty Rotation</Eyebrow>
+              <h3 className="m-0 text-[clamp(1.7rem,3vw,3rem)] leading-[1.08]">更多创作伙伴，按节奏轮流登场。</h3>
+            </div>
+            <p className="m-0 max-w-[30rem] text-[.96rem] font-bold leading-[1.65] text-[rgba(255,250,242,.72)]">
+              保留关键信息，减少阅读负担；鼠标停留时轮播会暂停，方便查看单个老师履历。
+            </p>
+          </div>
+
+          <div className="faculty-carousel overflow-hidden">
+            <div className="faculty-carousel-track flex w-max gap-[1.1rem]">
+              {[...rotatingTeachers, ...rotatingTeachers].map((teacher, index) => (
+                <article
+                  key={`${teacher.name}-${index}`}
+                  className="teacher-card relative grid w-[min(78vw,25rem)] shrink-0 grid-rows-[18rem_auto] overflow-hidden border border-[rgba(255,250,242,.18)] bg-[rgba(255,250,242,.94)] text-[var(--ink)] shadow-[8px_8px_0_rgba(67,168,223,.16)]"
+                  data-number={teacher.number}
+                  aria-hidden={index >= rotatingTeachers.length}
+                >
+                  <img className="h-full w-full object-cover object-top" src={teacher.image} alt={teacher.alt} />
+                  <div className="relative z-[2] grid gap-3 p-[1.05rem]">
+                    <small className="font-display text-[rgba(31,29,45,.58)] uppercase">{teacher.field}</small>
+                    <div className="grid gap-1">
+                      <strong className="text-[clamp(1.4rem,2vw,1.95rem)] leading-[1.08]">{teacher.name}</strong>
+                      <h3 className="m-0 text-[1rem] leading-[1.35] text-[var(--blue)]">{teacher.title}</h3>
+                    </div>
+                    <p className="teacher-role m-0 text-[.92rem] font-extrabold leading-[1.5] text-[var(--coral)]">{teacher.role}</p>
+                    <ul className="teacher-list m-0 grid gap-[.32rem] border-t border-[rgba(31,29,45,.16)] py-0 pl-[1.05rem] pt-3 text-[.9rem] leading-[1.5]">
+                      {teacher.works.slice(0, 2).map((work) => (
+                        <li key={work}>
+                          <HighlightedWork text={work} />
+                        </li>
+                      ))}
+                    </ul>
+                    <p className="teacher-bio line-clamp-4 m-0 border-t border-[rgba(31,29,45,.16)] pt-3 text-[.92rem] leading-[1.62] text-[rgba(31,29,45,.78)]">
+                      <HighlightedBio text={teacher.bio} />
+                    </p>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
