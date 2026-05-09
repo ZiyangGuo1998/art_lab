@@ -4,6 +4,8 @@ import { useEffect } from "react";
 
 export function ScrollEffects() {
   useEffect(() => {
+    document.documentElement.classList.add("motion-ready");
+
     const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>(".nav-link, .brand-link"));
     const sections = Array.from(document.querySelectorAll<HTMLElement>("header[id], section[id]"));
     const cleanups: Array<() => void> = [];
@@ -60,6 +62,7 @@ export function ScrollEffects() {
 
     return () => {
       cleanups.forEach((cleanup) => cleanup());
+      document.documentElement.classList.remove("motion-ready");
     };
   }, []);
 
