@@ -926,6 +926,10 @@ function Contact() {
                     {studioAddress}
                   </h3>
                 </a>
+                <p className="m-0 mt-3 flex flex-wrap items-baseline gap-x-3 gap-y-1 border-t border-[rgba(31,29,45,.18)] pt-3 text-[.95rem] font-bold text-[rgba(31,29,45,.76)]">
+                  <span className="font-display text-[.74rem] uppercase tracking-[.08em] text-[var(--coral)]">Business Hours</span>
+                  <span>营业时间：10:00-18:00</span>
+                </p>
                 <ExpectedVisitTime />
               </div>
             </div>
