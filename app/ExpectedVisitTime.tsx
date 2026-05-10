@@ -85,7 +85,7 @@ export function ExpectedVisitTime() {
       </div>
 
       <div className="grid gap-3">
-        <div className="grid grid-cols-2 gap-3 max-[560px]:grid-cols-1">
+        <div className="grid grid-cols-2 items-start gap-3 max-[560px]:grid-cols-1">
           <div className="grid gap-1.5">
             <label className="grid gap-1.5 text-[.82rem] font-bold text-[rgba(31,29,45,.7)]">
               期望日期
