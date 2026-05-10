@@ -13,6 +13,7 @@ const navLinks = [
   { href: "#portfolio", label: "作品集/升学" },
   { href: "#team", label: "师资" },
   { href: "#venue", label: "空间" },
+  { href: "#reviews", label: "评价" },
   { href: "#contact", label: "联系" },
 ];
 
@@ -424,6 +425,81 @@ const benefits = [
     label: "03 / 交流群",
     title: "发送“进群”加入艺术沙龙",
     body: "和舞蹈、戏剧、电影相关创作者与制作人交流分享。",
+  },
+];
+
+const reviews = [
+  {
+    number: "01",
+    name: "小林",
+    role: "舞蹈影像工作坊学员",
+    color: "bg-[var(--yellow)]",
+    quote:
+      "第一次把身体训练、镜头语言和剪辑放在同一条线上理解。拍完作品那天，我真的感觉自己的表达被看见了。",
+    change: "参与后最大的变化：不再只等灵感，而是知道怎么把一个动作发展成完整影像。",
+  },
+  {
+    number: "02",
+    name: "Ariel",
+    role: "作品集申请学员",
+    color: "bg-[var(--cyan)]",
+    quote:
+      "老师没有把我塞进模板里，而是一直追问我为什么要做这件作品。最终版本比我原来想象的更像我自己。",
+    change: "参与后最大的变化：作品集从一堆材料，变成了有叙事、有态度的一条线。",
+  },
+  {
+    number: "03",
+    name: "梓涵",
+    role: "戏剧创意工作坊学员",
+    color: "bg-[var(--pink)]",
+    quote:
+      "这里的练习很安全，也很有挑战。即兴的时候我第一次发现，原来我可以不用准备好，也能站出来表达。",
+    change: "参与后最大的变化：敢开口、敢试错，也敢把很私人的感受放进创作。",
+  },
+  {
+    number: "04",
+    name: "Ming",
+    role: "音乐剧训练学员",
+    color: "bg-[var(--blue)]",
+    quote:
+      "声乐、台词和身体不是分开的课，老师会帮我找到它们互相支撑的地方。每次排练都能感觉自己更稳一点。",
+    change: "参与后最大的变化：从只会模仿片段，到能理解角色、节奏和舞台能量。",
+  },
+  {
+    number: "05",
+    name: "一诺",
+    role: "艺术疗愈工作坊参与者",
+    color: "bg-[var(--coral)]",
+    quote:
+      "工作坊不是简单放松，而是让我重新听见身体在说什么。结束后那种轻盈感，持续了很久。",
+    change: "参与后最大的变化：开始用创作照顾自己，也更愿意温柔地面对压力。",
+  },
+  {
+    number: "06",
+    name: "Rita",
+    role: "现代舞工作坊学员",
+    color: "bg-[var(--yellow)]",
+    quote:
+      "老师不会要求我跳成某一种标准样子，而是帮我找到身体真正舒服又有力量的路径。那几次课让我重新喜欢上练习。",
+    change: "参与后最大的变化：动作不再只是完成度，而是能带着自己的呼吸和判断。",
+  },
+  {
+    number: "07",
+    name: "陈同学",
+    role: "考研复试辅导学员",
+    color: "bg-[var(--cyan)]",
+    quote:
+      "面试准备最有用的地方，是老师帮我把经历和作品重新串起来。很多原本散掉的回答，最后都有了清楚的重点。",
+    change: "参与后最大的变化：不再背答案，而是能稳定地讲出自己的创作逻辑。",
+  },
+  {
+    number: "08",
+    name: "学员家长",
+    role: "作品集陪伴家庭",
+    color: "bg-[var(--pink)]",
+    quote:
+      "孩子以前总说不清自己想做什么，这里没有急着给方案，而是陪她慢慢把想法问出来。每一次推进都看得见变化。",
+    change: "参与后最大的变化：从被动完成任务，到愿意主动讨论主题、材料和呈现方式。",
   },
 ];
 
@@ -858,7 +934,7 @@ function Venue() {
           }
         />
 
-        <div className="reveal overflow-x-auto pb-4 scroll-smooth [scrollbar-width:thin]">
+        <div className="venue-scroll reveal overflow-x-auto pb-4 scroll-smooth [scrollbar-width:thin]">
           <div className="flex snap-x snap-mandatory gap-4">
             {venueSpaces.map((space) => (
               <article
@@ -886,12 +962,66 @@ function Venue() {
   );
 }
 
+function Reviews() {
+  return (
+    <section className={`${sectionClass} bg-[#171626] text-[var(--white)]`} id="reviews">
+      <div className={wideWrapClass}>
+        <ActHeader
+          eyebrow="Act 07 / Reviews"
+          title="来过的人，把感受留在这里。"
+          body={
+            <>
+              <span>不只是五星好评，更是一次次从犹豫到敢表达、从碎片到作品的真实变化。</span>
+              <span className="mt-2 block">这些评价来自不同课程与工作坊的参与者，也像一条正在继续滚动的创作现场记录。</span>
+            </>
+          }
+        />
+
+        <div className="reveal overflow-hidden border-y border-[rgba(255,250,242,.16)] bg-[rgba(23,51,125,.36)] py-5">
+          <div className="review-scroll overflow-x-auto scroll-smooth px-4 pb-1 [scrollbar-width:thin]">
+            <div className="flex w-max gap-4">
+              {reviews.map((review) => (
+                <article
+                  key={review.number}
+                  className="grid w-[clamp(19rem,28vw,26rem)] shrink-0 content-between gap-5 border border-[rgba(255,250,242,.2)] bg-[var(--white)] p-[clamp(1rem,1.6vw,1.35rem)] text-[var(--ink)] shadow-[8px_8px_0_rgba(67,168,223,.16)]"
+                >
+                  <div>
+                    <div className="mb-4 flex items-center justify-between gap-3">
+                      <span className={`font-display grid aspect-square w-12 shrink-0 place-items-center text-[1rem] text-[var(--ink)] ${review.color}`}>
+                        {review.number}
+                      </span>
+                      <span className="font-display text-[1.08rem] leading-none text-[var(--coral)]" aria-label="5 星好评">
+                        ★★★★★
+                      </span>
+                    </div>
+                    <p className="m-0 text-[clamp(1rem,1.18vw,1.12rem)] font-bold leading-[1.66]">“{review.quote}”</p>
+                  </div>
+                  <div className="border-t border-[rgba(31,29,45,.14)] pt-4">
+                    <p className="m-0 text-[.92rem] leading-[1.58] text-[rgba(31,29,45,.72)]">{review.change}</p>
+                    <div className="mt-4 flex items-end justify-between gap-4">
+                      <div>
+                        <strong className="block text-[1.08rem] leading-none">{review.name}</strong>
+                        <small className="mt-1 block text-[.78rem] uppercase text-[rgba(31,29,45,.56)]">{review.role}</small>
+                      </div>
+                      <span className="h-px w-16 bg-[var(--yellow)]" />
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Contact() {
   return (
     <section className={`${sectionClass} bg-[#171626] text-[var(--white)]`} id="contact">
       <div className={wideWrapClass}>
         <ActHeader
-          eyebrow="Act 07 / Contact"
+          eyebrow="Act 08 / Contact"
           title="所以，什么时候见？"
           body={
             <>
@@ -1025,6 +1155,7 @@ export default function Home() {
         <Portfolio />
         <Faculty />
         <Venue />
+        <Reviews />
         <Contact />
       </main>
       <Footer />

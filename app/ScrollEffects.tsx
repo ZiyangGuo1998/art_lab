@@ -44,6 +44,56 @@ export function ScrollEffects() {
     reveals.forEach((item) => revealObserver.observe(item));
     cleanups.push(() => revealObserver.disconnect());
 
+    const edgeScrollers = Array.from(document.querySelectorAll<HTMLElement>(".venue-scroll, .review-scroll"));
+    edgeScrollers.forEach((scroller) => {
+      let animationFrame = 0;
+      let scrollSpeed = 0;
+
+      const stopEdgeScroll = () => {
+        scrollSpeed = 0;
+        if (!animationFrame) return;
+        cancelAnimationFrame(animationFrame);
+        animationFrame = 0;
+      };
+
+      const tickEdgeScroll = () => {
+        if (!scrollSpeed) {
+          animationFrame = 0;
+          return;
+        }
+
+        scroller.scrollLeft += scrollSpeed;
+        animationFrame = requestAnimationFrame(tickEdgeScroll);
+      };
+
+      const updateEdgeScroll = (event: MouseEvent) => {
+        const rect = scroller.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const rightEdge = rect.width * 0.72;
+        const leftEdge = rect.width * 0.18;
+
+        if (x > rightEdge) {
+          scrollSpeed = Math.min(18, 4 + ((x - rightEdge) / (rect.width - rightEdge)) * 16);
+        } else if (x < leftEdge) {
+          scrollSpeed = -Math.min(18, 4 + ((leftEdge - x) / leftEdge) * 16);
+        } else {
+          scrollSpeed = 0;
+        }
+
+        if (scrollSpeed && !animationFrame) {
+          animationFrame = requestAnimationFrame(tickEdgeScroll);
+        }
+      };
+
+      scroller.addEventListener("mousemove", updateEdgeScroll);
+      scroller.addEventListener("mouseleave", stopEdgeScroll);
+      cleanups.push(() => {
+        scroller.removeEventListener("mousemove", updateEdgeScroll);
+        scroller.removeEventListener("mouseleave", stopEdgeScroll);
+        stopEdgeScroll();
+      });
+    });
+
     const sectionObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
