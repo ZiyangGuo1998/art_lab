@@ -893,7 +893,12 @@ function Faculty() {
               className="teacher-card reveal relative flex flex-col overflow-hidden border border-[rgba(255,250,242,.18)] bg-[rgba(255,250,242,.94)] text-[var(--ink)]"
               data-number={teacher.number}
             >
-              <img className="h-[30rem] w-full object-cover object-top max-[640px]:h-[28rem]" src={teacher.image} alt={teacher.alt} />
+              <figure className="group relative m-0 overflow-hidden">
+                <img className="h-[35rem] w-full object-cover object-top max-[640px]:h-[31rem]" src={teacher.image} alt={teacher.alt} />
+                <div className="pointer-events-none absolute inset-0 z-[3] grid place-items-center bg-[rgba(19,22,42,.66)] p-3 opacity-0 transition duration-300 group-hover:opacity-100">
+                  <img className="max-h-full w-full object-contain" src={teacher.image} alt={`${teacher.alt}全图预览`} />
+                </div>
+              </figure>
               <div className="relative z-[2] grid gap-3 p-[1.15rem]">
                 <small className="font-display text-[rgba(31,29,45,.58)] uppercase">{teacher.field}</small>
                 <strong className="text-[clamp(1.55rem,2.3vw,2.2rem)] leading-[1.1]">{teacher.name}</strong>
