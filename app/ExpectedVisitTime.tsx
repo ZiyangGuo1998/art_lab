@@ -4,17 +4,66 @@ import type { ReactNode } from "react";
 import { useMemo, useState } from "react";
 
 const phoneNumber = "18810671967";
+const earliestVisitHour = 10;
+const latestVisitHour = 18;
+const leadHours = 2;
 
-function getTodayValue() {
-  const today = new Date();
-  const offset = today.getTimezoneOffset() * 60000;
-  return new Date(today.getTime() - offset).toISOString().slice(0, 10);
+function formatDateValue(date: Date) {
+  const offset = date.getTimezoneOffset() * 60000;
+  return new Date(date.getTime() - offset).toISOString().slice(0, 10);
+}
+
+function addDays(date: Date, days: number) {
+  const nextDate = new Date(date);
+  nextDate.setDate(nextDate.getDate() + days);
+  return nextDate;
+}
+
+function formatHourValue(hour: number) {
+  return `${String(hour).padStart(2, "0")}:00`;
+}
+
+function getInitialVisitSlot() {
+  const now = new Date();
+  const target = new Date(now);
+  target.setHours(target.getHours() + leadHours);
+
+  if (target.getMinutes() > 0 || target.getSeconds() > 0 || target.getMilliseconds() > 0) {
+    target.setHours(target.getHours() + 1, 0, 0, 0);
+  }
+
+  const targetHour = target.getHours();
+
+  if (!isSameDay(now, target) || targetHour > latestVisitHour || now.getHours() >= latestVisitHour) {
+    return {
+      date: formatDateValue(addDays(now, 1)),
+      time: formatHourValue(earliestVisitHour),
+    };
+  }
+
+  return {
+    date: formatDateValue(target),
+    time: formatHourValue(Math.max(targetHour, earliestVisitHour)),
+  };
+}
+
+function isSameDay(a: Date, b: Date) {
+  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 }
 
 export function ExpectedVisitTime() {
-  const todayValue = useMemo(() => getTodayValue(), []);
-  const [visitDate, setVisitDate] = useState(todayValue);
-  const [visitTime, setVisitTime] = useState("14:00");
+  const todayValue = useMemo(() => formatDateValue(new Date()), []);
+  const relativeDays = useMemo(
+    () => [
+      { label: "今天", value: todayValue },
+      { label: "明天", value: formatDateValue(addDays(new Date(), 1)) },
+      { label: "后天", value: formatDateValue(addDays(new Date(), 2)) },
+    ],
+    [todayValue],
+  );
+  const initialVisitSlot = useMemo(() => getInitialVisitSlot(), []);
+  const [visitDate, setVisitDate] = useState(initialVisitSlot.date);
+  const [visitTime, setVisitTime] = useState(initialVisitSlot.time);
 
   const message = useMemo(() => {
     if (!visitDate && !visitTime) {
@@ -37,21 +86,41 @@ export function ExpectedVisitTime() {
 
       <div className="grid gap-3">
         <div className="grid grid-cols-2 gap-3 max-[560px]:grid-cols-1">
-          <label className="grid gap-1.5 text-[.82rem] font-bold text-[rgba(31,29,45,.7)]">
-            期望日期
-            <input
-              className="min-h-11 w-full border border-[rgba(31,29,45,.22)] bg-[rgba(255,250,242,.72)] px-3 text-[1rem] font-bold text-[var(--ink)] outline-none transition focus:border-[var(--coral)]"
-              min={todayValue}
-              type="date"
-              value={visitDate}
-              onChange={(event) => setVisitDate(event.target.value)}
-            />
-          </label>
+          <div className="grid gap-1.5">
+            <label className="grid gap-1.5 text-[.82rem] font-bold text-[rgba(31,29,45,.7)]">
+              期望日期
+              <input
+                className="min-h-11 w-full border border-[rgba(31,29,45,.22)] bg-[rgba(255,250,242,.72)] px-3 text-[1rem] font-bold text-[var(--ink)] outline-none transition focus:border-[var(--coral)]"
+                min={todayValue}
+                type="date"
+                value={visitDate}
+                onChange={(event) => setVisitDate(event.target.value)}
+              />
+            </label>
+            <div className="flex flex-wrap gap-2" aria-label="快速选择期望日期">
+              {relativeDays.map((day) => (
+                <button
+                  className={`border px-3 py-1 text-[.74rem] font-black text-[var(--coral)] transition hover:border-[var(--coral)] hover:bg-[rgba(255,87,79,.12)] ${
+                    visitDate === day.value
+                      ? "border-[var(--coral)] bg-[rgba(255,87,79,.14)]"
+                      : "border-[rgba(255,87,79,.38)] bg-[rgba(255,250,242,.65)]"
+                  }`}
+                  key={day.value}
+                  type="button"
+                  onClick={() => setVisitDate(day.value)}
+                >
+                  {day.label}
+                </button>
+              ))}
+            </div>
+          </div>
 
           <label className="grid gap-1.5 text-[.82rem] font-bold text-[rgba(31,29,45,.7)]">
             期望时间
             <input
               className="min-h-11 w-full border border-[rgba(31,29,45,.22)] bg-[rgba(255,250,242,.72)] px-3 text-[1rem] font-bold text-[var(--ink)] outline-none transition focus:border-[var(--coral)]"
+              max="18:00"
+              min="10:00"
               type="time"
               value={visitTime}
               onChange={(event) => setVisitTime(event.target.value)}
