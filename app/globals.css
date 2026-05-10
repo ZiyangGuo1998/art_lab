@@ -149,15 +149,6 @@
     will-change: transform;
   }
 
-  .review-track {
-    animation: review-scroll 34s linear infinite;
-    will-change: transform;
-  }
-
-  .review-track:hover {
-    animation-play-state: paused;
-  }
-
   .reveal {
     opacity: 1;
     transform: translateY(0);
@@ -184,22 +175,12 @@
   }
 }
 
-@keyframes review-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
-  .slogan-track,
-  .review-track {
+  .slogan-track {
     animation: none;
   }
 }

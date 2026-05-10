@@ -13,7 +13,6 @@ const navLinks = [
   { href: "#portfolio", label: "作品集/升学" },
   { href: "#team", label: "师资" },
   { href: "#venue", label: "空间" },
-  { href: "#reviews", label: "评价" },
   { href: "#contact", label: "联系" },
 ];
 
@@ -434,46 +433,6 @@ const contactTakeaways = [
   { label: "03", title: "一个不错的创意 idea", image: "/assets/takeaway-idea-ai.png" },
   { label: "04", title: "一个全新的你自己", image: "/assets/takeaway-self-ai.png" },
 ];
-
-const customerReviews = [
-  {
-    name: "小林",
-    role: "舞蹈影像工作坊学员",
-    accent: "bg-[var(--yellow)]",
-    quote: "第一次把身体训练、镜头语言和剪辑放在同一条线上理解。拍完作品那天，我真的感觉自己的表达被看见了。",
-    feeling: "参与后最大的变化：不再只等灵感，而是知道怎么把一个动作发展成完整影像。",
-  },
-  {
-    name: "Ariel",
-    role: "作品集申请学员",
-    accent: "bg-[var(--cyan)]",
-    quote: "老师没有把我塞进模板里，而是一直追问我为什么要做这件作品。最终版本比我原来想象的更像我自己。",
-    feeling: "参与后最大的变化：作品集从一堆材料，变成了有叙事、有态度的一条线。",
-  },
-  {
-    name: "梓涵",
-    role: "戏剧创意工作坊学员",
-    accent: "bg-[var(--pink)]",
-    quote: "这里的练习很安全，也很有挑战。即兴的时候我第一次发现，原来我可以不用准备好，也能站出来表达。",
-    feeling: "参与后最大的变化：敢开口、敢试错，也敢把很私人的感受放进创作。",
-  },
-  {
-    name: "Ming",
-    role: "音乐剧训练学员",
-    accent: "bg-[var(--blue)]",
-    quote: "声乐、台词和身体不是分开的课，老师会帮我找到它们互相支撑的地方。每次排练都能感觉自己更稳一点。",
-    feeling: "参与后最大的变化：从只会模仿片段，到能理解角色、节奏和舞台能量。",
-  },
-  {
-    name: "一诺",
-    role: "艺术疗愈工作坊参与者",
-    accent: "bg-[var(--coral)]",
-    quote: "工作坊不是简单放松，而是让我重新听见身体在说什么。结束后那种轻盈感，持续了很久。",
-    feeling: "参与后最大的变化：开始用创作照顾自己，也更愿意温柔地面对压力。",
-  },
-];
-
-const rollingReviews = [...customerReviews, ...customerReviews];
 
 const sectionClass =
   "scroll-mt-[calc(var(--nav-h)+18px)] px-[clamp(1rem,4vw,4rem)] py-[clamp(4rem,8vw,7rem)]";
@@ -927,66 +886,12 @@ function Venue() {
   );
 }
 
-function Reviews() {
-  return (
-    <section className={`${sectionClass} bg-[#171626] text-[var(--white)]`} id="reviews">
-      <div className={wideWrapClass}>
-        <ActHeader
-          eyebrow="Act 07 / Reviews"
-          title="来过的人，把感受留在这里。"
-          body={
-            <>
-              <span>不只是五星好评，更是一次次从犹豫到敢表达、从碎片到作品的真实变化。</span>
-              <span className="mt-2 block">这些评价来自不同课程与工作坊的参与者，也像一条正在继续滚动的创作现场记录。</span>
-            </>
-          }
-        />
-
-        <div className="reveal overflow-hidden border-y border-[rgba(255,250,242,.16)] bg-[rgba(23,51,125,.36)] py-5">
-          <div className="review-track flex w-max gap-4 px-4">
-            {rollingReviews.map((review, index) => (
-              <article
-                key={`${review.name}-${index}`}
-                className="grid w-[clamp(19rem,28vw,26rem)] shrink-0 content-between gap-5 border border-[rgba(255,250,242,.2)] bg-[var(--white)] p-[clamp(1rem,1.6vw,1.35rem)] text-[var(--ink)] shadow-[8px_8px_0_rgba(67,168,223,.16)]"
-              >
-                <div>
-                  <div className="mb-4 flex items-center justify-between gap-3">
-                    <span className={`font-display grid aspect-square w-12 shrink-0 place-items-center text-[1rem] text-[var(--ink)] ${review.accent}`}>
-                      {String((index % customerReviews.length) + 1).padStart(2, "0")}
-                    </span>
-                    <span className="font-display text-[1.08rem] leading-none text-[var(--coral)]" aria-label="5 星好评">
-                      ★★★★★
-                    </span>
-                  </div>
-                  <p className="m-0 text-[clamp(1rem,1.18vw,1.12rem)] font-bold leading-[1.66]">
-                    “{review.quote}”
-                  </p>
-                </div>
-                <div className="border-t border-[rgba(31,29,45,.14)] pt-4">
-                  <p className="m-0 text-[.92rem] leading-[1.58] text-[rgba(31,29,45,.72)]">{review.feeling}</p>
-                  <div className="mt-4 flex items-end justify-between gap-4">
-                    <div>
-                      <strong className="block text-[1.08rem] leading-none">{review.name}</strong>
-                      <small className="mt-1 block text-[.78rem] uppercase text-[rgba(31,29,45,.56)]">{review.role}</small>
-                    </div>
-                    <span className="h-px w-16 bg-[var(--yellow)]" />
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function Contact() {
   return (
     <section className={`${sectionClass} bg-[#171626] text-[var(--white)]`} id="contact">
       <div className={wideWrapClass}>
         <ActHeader
-          eyebrow="Act 08 / Contact"
+          eyebrow="Act 07 / Contact"
           title="所以，什么时候见？"
           body={
             <>
@@ -1120,7 +1025,6 @@ export default function Home() {
         <Portfolio />
         <Faculty />
         <Venue />
-        <Reviews />
         <Contact />
       </main>
       <Footer />
