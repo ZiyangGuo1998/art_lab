@@ -3,6 +3,9 @@ import { ExpectedVisitTime } from "./ExpectedVisitTime";
 import { ScrollEffects } from "./ScrollEffects";
 import { WorkshopSlider } from "./WorkshopSlider";
 
+const studioAddress = "北京市朝阳区高碑店地区东方金叶文创园 A5";
+const studioMapUrl = `https://uri.amap.com/search?keyword=${encodeURIComponent(studioAddress)}&city=北京&src=guardian-art`;
+
 const navLinks = [
   { href: "#about", label: "工作室" },
   { href: "#services", label: "业务" },
@@ -900,13 +903,29 @@ function Contact() {
 
         <div className="grid grid-cols-[minmax(280px,1fr)_minmax(0,2fr)] gap-[clamp(1rem,2.2vw,2rem)] max-[980px]:grid-cols-1">
           <article className="reveal grid overflow-hidden bg-[var(--white)] text-[var(--ink)]">
-            <img className="h-[clamp(17rem,27vw,28rem)] w-full object-cover" src="/assets/map-location-ai.png" alt="东方金叶文创园 A5 门店位置示意图" />
+            <a
+              className="block outline-none focus-visible:ring-2 focus-visible:ring-[var(--coral)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--white)]"
+              href={studioMapUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`打开地图搜索${studioAddress}`}
+            >
+              <img className="h-[clamp(17rem,27vw,28rem)] w-full object-cover transition duration-300 hover:scale-[1.01]" src="/assets/map-location-ai.png" alt="东方金叶文创园 A5 门店位置示意图" />
+            </a>
             <div className="grid gap-3 p-[clamp(1rem,2vw,1.4rem)]">
               <div>
                 <Eyebrow>Location Map / Address</Eyebrow>
-                <h3 className="m-0 max-w-[34rem] text-[clamp(1.55rem,2.2vw,2.55rem)] leading-[1.05]">
-                  北京市朝阳区高碑店地区东方金叶文创园 A5
-                </h3>
+                <a
+                  className="block max-w-[34rem] text-[var(--ink)] underline decoration-[rgba(255,87,79,.35)] decoration-2 underline-offset-[.18em] outline-none transition hover:text-[var(--coral)] hover:decoration-[var(--coral)] focus-visible:text-[var(--coral)]"
+                  href={studioMapUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`打开地图搜索${studioAddress}`}
+                >
+                  <h3 className="m-0 text-[clamp(1.55rem,2.2vw,2.55rem)] leading-[1.05]">
+                    {studioAddress}
+                  </h3>
+                </a>
                 <ExpectedVisitTime />
               </div>
             </div>
